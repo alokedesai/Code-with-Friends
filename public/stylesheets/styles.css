@@ -1,0 +1,123 @@
+body{
+	/*background-color: rgb(39,40,34);*/
+	background-color: #eee;
+}
+.container{
+	color: #fff;
+}
+#nav {
+	background-color: #fff;
+	height: 80px;
+	width: 100%;
+	padding: 3px 5px;
+
+}
+#header{
+	color: rgb(210, 58, 44);
+	line-height: 250px;
+	
+	padding: 10px 30px;
+}
+#home {
+	background-color: #fff;
+	width: 100%;
+	height: 500px;
+
+}
+.logo{
+	-webkit-font-smoothing: antialiased;
+box-sizing: border-box;
+color: rgb(207, 19, 50);
+display: block;
+
+font-size: 20px;
+font-style: normal;
+font-variant: normal;
+font-weight: bold;
+height: 30px;
+letter-spacing: 2px;
+line-height: 30px;
+text-transform: uppercase;
+width: 790px;
+padding: 10px 30px;
+padding-bottom: 20px;
+
+padding-top:  50px;
+
+}
+#header{
+	-webkit-font-smoothing: antialiased;
+color: rgb(58, 64, 70);
+display: block;
+font-family: SourceSansPro-Black, Helvetica, Arial;
+font-size: 70px;
+font-style: normal;
+font-variant: normal;
+font-weight: normal;
+height: 160px;
+letter-spacing: 2px;
+line-height: 80px;
+margin-bottom: 39.5px;
+margin-left: 0px;
+margin-right: 0px;
+margin-top: 39.5px;
+min-width: 790px;
+width: 100%;
+}
+#leanMore{
+	-webkit-font-smoothing: antialiased;
+color: rgb(58, 64, 70);
+display: block;
+font-family: SourceSansPro-Black, Helvetica, Arial;
+font-size: 70px;
+font-style: normal;
+font-variant: normal;
+font-weight: normal;
+height: 160px;
+letter-spacing: 2px;
+line-height: 80px;
+margin-bottom: 39.5px;
+margin-left: 0px;
+margin-right: 0px;
+margin-top: 39.5px;
+width: 790px;
+}
+#learnMore span{
+	width: 15px;
+height: 3px;
+background-color: #5D656C;
+display: block;
+position: absolute;
+top: 30px;
+-webkit-transition: all .4s ease-in-out;
+-moz-transition: all .4s ease-in-out;
+-ms-transition: all .4s ease-in-out;
+-o-transition: all .4s ease-in-out;
+transition: all .4s ease-in-out;
+}
+.lineLeft{
+	-webkit-transform: rotate(45deg);
+	left: 37px;
+}
+.lineRight{
+	-webkit-transform: rotate(-45deg);
+	left: 46px;
+}
+#moreInfo{
+	margin: 10px 30px;
+
+}
+.compile{
+	background-color: rgb(245,245,245);
+	width: 100%;
+	height: 500px;
+}
+#compiler{
+	padding-left: 10px;
+	padding-right: 10px;
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+.info{
+	display: none;
+}
