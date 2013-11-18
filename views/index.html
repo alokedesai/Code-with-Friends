@@ -1,48 +1,45 @@
 <html>
 <head>
   <title>Code With Friends</title>
-            <!--firebase  -->
-        <script src="https://cdn.firebase.com/v0/firebase.js"></script>
-        <!-- codemirror -->
+        <!-- stylesheets -->
         <link rel="stylesheet" href="/stylesheets/codemirror.css" />
+        <link rel="stylesheet" type="text/css" href="/stylesheets/jqconsole.css">
         <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:700' rel='stylesheet' type='text/css'>
-            <script src="/javascripts/codemirror.js"></script>
-            <link  rel="stylesheet" href="/javascripts/codemirror/theme/monokai.css"/>
-
-            <script type="text/javascript" src="/javascripts/codemirror/mode/javascript/javascript.js"></script>
-        
-
-      
-        <!-- Download from http://www.firepad.io/firepad.zip -->
-            <link rel="stylesheet" href="/stylesheets/firepad.css" />
-            <script src="/javascripts/firepad.js"></script> 
-             <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>  
-
-             <!-- JS REPL files -->
-              <script type="text/javascript" src="/javascripts/jquery.jkey.min.js"></script>
-    <script type="text/javascript" src="/javascripts/evaluator.js"></script>
-
+        <link  rel="stylesheet" href="/javascripts/codemirror/theme/monokai.css"/>
+        <link rel="stylesheet" href="/stylesheets/firepad.css" />
         <!-- Bootstrap and local stylesheet -->
         <link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
         <link rel="stylesheet" type="text/css" href="/stylesheets/styles.css">
 
+
+            <!--firebase  -->
+        <script src="https://cdn.firebase.com/v0/firebase.js"></script>
+
+          <!-- codemirror -->
+            <script src="/javascripts/codemirror.js"></script>
+            <script type="text/javascript" src="/javascripts/codemirror/mode/javascript/javascript.js"></script>
+        
+
+      
+        <!--Required firebase/firepad files -->
+          
+              <script src="/javascripts/firepad.js"></script> 
+             <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>  
+
+             <!-- JS REPL files -->
+              <script type="text/javascript" src="/javascripts/jquery.jkey.min.js"></script>
+            <script type="text/javascript" src="/javascripts/evaluator.js"></script>
+
+        
+
         <!-- JQconsole for writing out files -->
         <script type="text/javascript" src="/javascripts/jqconsole.js"></script>
 
-        <!-- Jquery typer -->
-        <script type="text/javascript" src="/javascripts/jquery.typer.js"></script>
+       
 
 
 </head>
 <body>
-   <!--  <div id="nav">
-      inside div
-      <div class="pull-left"><img src="/images/CF-01.png" style="height:50%;"/></div>
-      <div class="pull-right">
-
-        <h1 id="header">Code with Friends</h1>
-      </div>
-    </div> -->
 
       <div id="home">
         <div class="container">
@@ -50,7 +47,6 @@
 
       <h1 id="header">
         A text editor that <br>
-        <!-- <span data-typer-targets="wins hackathons, helps you make things, test1, test2, test3">helps you collaborate</span> -->
         <span class="info">helps you collaborate</span>
         <span class="info">wins hackathons</span>
         <span class="info">creates things</span>
@@ -58,7 +54,7 @@
       </h1>
 
       <script type="text/javascript">
-
+//animation that cycles through .info
 (function() {
 
     var quotes = $(".info");
@@ -79,7 +75,6 @@
     
 
       <a id="moreInfo" class="btn btn-lg btn-danger" href="#compiler">More Info</a>
-
         </div>
   
 
@@ -95,7 +90,9 @@
             <div class="col-md-6">
                 <!-- input text area (the firepad part) -->
                 <div  id="firepad"></div>
+
                         <script>
+                        //scripts to compile javascript
                            function endsWith(str, suffix) {
                         var index = str.lastIndexOf(suffix);
                         return index >= 0 && index === str.length - suffix.length;
@@ -138,22 +135,9 @@
 
                     function appendResultStr(feedbackStr) {
                         var textArea = document.getElementById('output');
-                        // Make sure that we start a new line
-                       
-
-                        // if (textArea.value.length > 0 && !endsWith(textArea.value, "\n")) {
-                        //     feedbackStr = "\n" + feedbackStr;
-                        // }
-                        // textArea.value = textArea.value + feedbackStr;
-                        // textArea.scrollTop = textArea.scrollHeight;
-
+                        
+                        // write the output to jqConsole
                         jqconsole.Write(feedbackStr);
-                       
-
-
-
-                        // textArea.setSelectionRange(textArea.value.length, textArea.value.length);
-                        // $("#input").focus();
                     }
 
                     function cursorIsAtLineEnd(textArea) {
@@ -180,9 +164,11 @@
 
                         var environment = {};
                         var inputArea = document.getElementById("firepad");
+                        //use ctrl+shift to run commands
                         $("#firepad").jkey('ctrl+shift', function () {
                             console.log("x");
                              var prog = ""
+                             // get the text currently in firepad
                           $('.CodeMirror-code').children('div').each(function () {
                                 
                             $(this).children("pre").each(function () {
@@ -195,7 +181,7 @@
                             
                         });
 
-                            // var resultStr = evaluator.evaluate(extractText(inputArea));
+                           
                             var resultStr = evaluator.evaluate(prog);
                             appendResultStr(resultStr);
 
@@ -212,87 +198,28 @@
                     $(document).ready(init);
 
 
-                                  var firepadRef = new Firebase('https://fire-base-test.firebaseio.com/');
-                                  var codeMirror = CodeMirror(document.getElementById('firepad'), {mode: "javascript",
-                    // autofocus: true,
-                    // theme: "solarized dark",
-                    // //path: "static/env/codemirror/js/",
+                    var firepadRef = new Firebase('https://fire-base-test.firebaseio.com/');
+
+                    // settings for our codemirror object
+                    var codeMirror = CodeMirror(document.getElementById('firepad'), {mode: "javascript",
+                    autofocus: true,
                     lineNumbers: true,
                     theme: "monokai",
-                    // textWrapping: false,
-                    // indentUnit: 4,
                     height: "200px",
                      fontSize: "9pt",
-                     extraKeys: {"Ctrl-Space": "autocomplete"}
-                    // autoMatchParens: true,
+                    autoMatchParens: true,
                     
 
                 });
 
-
-                                  var firepad = Firepad.fromCodeMirror(firepadRef, codeMirror,
-                                      { richTextShortcuts: false, richTextToolbar: false });
+               var firepad = Firepad.fromCodeMirror(firepadRef, codeMirror,
+                  { richTextShortcuts: false, richTextToolbar: false });
             </script>
 
             </div>
 
             <div class="col-md-6">
-                 <!-- p>Output: (<a href="#" id="clearoutput">clear</a>)</p>
-    
-                <textarea style="width: 80%; height: 70%;" id="output" ></textarea>  -->
-                 <style>
-      
-                  #console {
-                    height: 350px;
-                    width: 90%
-                    position:relative;
-                    background-color: rgb(39,40,34) !important;
-/*                    border: 2px solid #CCC;
-*/                    margin: 0 auto;
-                    margin-top: 50px;
-                  }
-                  .jqconsole {
-                    padding: 10px;
-                    padding-bottom: 10px;
-                    background-color: rgb(39,40,34) !important;
-                    color: #fff;
-                    font-size: 9pt;
-                    border: none;
-                    border-radius: 0px;
-                  }
-                  .jqconsole-cursor {
-                    background-color: #fff;
-                  }
-                  .jqconsole-blurred .jqconsole-cursor {
-                    background-color: #666;
-                  }
-                  .jqconsole-prompt {
-                    color: #0d0;
-                  }
-                  .jqconsole-old-prompt {
-                    color: #0b0;
-                    font-weight: normal;
-                  }
-                  .jqconsole-input {
-                    color: #dd0;
-                  }
-                  .jqconsole-old-input {
-                    color: #bb0;
-                    font-weight: normal;
-                  }
-                  .brace {
-                    color: #00FFFF;
-                  }
-                  .paran {
-                    color: #FF00FF;
-                  }
-                  .bracket {
-                    color: #FFFF00;
-                  }
-                  .jqconsole-composition {
-                    background-color: red;
-                  }
-    </style>
+                
                 <div id="console"></div>
                    
 
@@ -348,24 +275,19 @@
         // Initiate the first prompt.
         handler();
       });
-//hacky way to hide the firepade logo.
+//hacky way to hide the firepade logo. 
+//TODO: Actually get rid of the logo
 $(".powered-by-firepad").hide();
     </script>
-
-
 
             </div>
    </div>
   
    
-
-<!-- Extra autocomplete features -->
-
-    <script type="text/javascript">
-      
-    </script>
+   <!-- footer text -->
+   <div class="container logo" style="font-size: 12px; text-align: center;">Made with love by Aloke Desai, Ryan Luo, and Mauricio Molina</div>
         
-        <!-- Smooth anchor scrolling -->
+        <!-- Smooth anchor scrolling (for the learnmore button) -->
 <script type="text/javascript">
 $(function() {
   $('a[href*=#]:not([href=#])').click(function() {
@@ -383,6 +305,5 @@ $(function() {
 });
 </script>
 
-<!-- If you want turtle graphics include a canvas -->
 </body>
 </html>
