@@ -12,8 +12,12 @@
          <link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
          <link rel="stylesheet" href="/stylesheets/firepad.css" />
                  <link rel="stylesheet" href="/stylesheets/codemirror.css" />
+                 <link  rel="stylesheet" href="/javascripts/codemirror/theme/monokai.css"/>
+        <link rel="stylesheet" type="text/css" href="/stylesheets/styles.css">
+                <link rel="stylesheet" type="text/css" href="/stylesheets/jqconsole.css">
 
-          <link rel="stylesheet" type="text/css" href="http://codemirror.net/addon/display/fullscreen.css">
+
+          <!-- <link rel="stylesheet" type="text/css" href="http://codemirror.net/addon/display/fullscreen.css"> -->
   <!-- <link rel="stylesheet" href="http://tenbourne.com/css/normalize.min.css">
   <link rel="stylesheet" href="http://tenbourne.com/css/style.min.css?v=1384600727">
   -->
@@ -22,7 +26,7 @@
   <script src="https://cdn.firebase.com/v0/firebase.js"></script>
         <!-- codemirror -->
             <script src="/javascripts/codemirror.js"></script>
-            <link  rel="stylesheet" href="/javascripts/codemirror/theme/monokai.css"/>
+            
 
             <script type="text/javascript" src="/javascripts/codemirror/mode/javascript/javascript.js"></script>
         
@@ -42,70 +46,150 @@
         <script type="text/javascript" src="http://codemirror.net/addon/display/fullscreen.js"></script>
 
         <script type="text/javascript" src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/themes/smoothness/jquery-ui.css" />
+<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
 
 </head>
 <body>
   <style type="text/css">
   .firepad{
-     display: block;
+/*     display: block;
             position: absolute;
             top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            left: 0;*/
+            width: 80%;
+            height: 700px;
             /*z-index: 9999;*/
-            margin: 0;
+            margin: 0 auto;
             padding: 0;
             border: 0px solid #BBBBBB;
             opacity: 1;
   }
   </style>
-  <div class="modal fade output" id="output" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class="modal-title" id="myModalLabel">Output</h4>
-      </div>
-      <div class="modal-body">
-        
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-      </div>
-    </div>
-  </div>
-</div>
+ 
+  <div class="content">
 
-<div id="firepad"></div>
-    <script>
-     var codeMirror = CodeMirror(document.body, {mode: "javascript",
+
+  <div id="firepad"></div>
+   <script>
+    var firepadRef = new Firebase("https://fire-base-test.firebaseio.com/'");
+     var codeMirror = CodeMirror(document.getElementById('firepad'), {mode: "javascript",
                     autofocus: true,
                     lineNumbers: true,
                     theme: "monokai",
                     fontSize: "9pt",
                     fullScreen: true, 
                     autoMatchParens: true});
-     
-      var firepadRef = new Firebase("https://fire-base-test.firebaseio.com/'");
+      
       var firepad = Firepad.fromCodeMirror(firepadRef, codeMirror,
           { richTextShortcuts: true, richTextToolbar: false });
     </script>
+  <div class="output">
+        <div class="header">Console</div>
+        <div id="console"></div>
+    </div>
+</div>
 
-    <script type="text/javascript">
+
+   
+
+    
+    
+
+    <!-- JQconsole script -->
+<script>
+      $(function() {
+        // Creating the console.
+        var header = ''
+        window.jqconsole = $('#console').jqconsole(header, '> ');
+
+        // Abort prompt on Ctrl+Z and Ctrl+C.
+        jqconsole.RegisterShortcut('Z', function() {
+          jqconsole.AbortPrompt();
+          handler();
+        });
+         jqconsole.RegisterShortcut('C', function() {
+          jqconsole.AbortPrompt();
+          handler();
+        });
+        // Move to line start Ctrl+A.
+        jqconsole.RegisterShortcut('A', function() {
+          jqconsole.MoveToStart();
+          handler();
+        });
+        // Move to line end Ctrl+E.
+        jqconsole.RegisterShortcut('E', function() {
+          jqconsole.MoveToEnd();
+          handler();
+        });
+        jqconsole.RegisterMatching('{', '}', 'brace');
+        jqconsole.RegisterMatching('(', ')', 'paran');
+        jqconsole.RegisterMatching('[', ']', 'bracket');
+        // Handle a command.
+        var handler = function(command) {
+          if (command) {
+            try {
+              jqconsole.Write('==> ' + window.eval(command) + '\n');
+            } catch (e) {
+              jqconsole.Write('ERROR: ' + e.message + '\n');
+            }
+          }
+          jqconsole.Prompt(true, handler, function(command) {
+            // Continue line if can't compile the command.
+            try {
+              Function(command);
+            } catch (e) {
+              if (/[\[\{\(]$/.test(command)) {
+                return 1;
+              } else {
+                return 0;
+              }
+            }
+            return false;
+          });
+        };
+
+        // Initiate the first prompt.
+        handler();
+      });
+//hacky way to hide the firepade logo. 
+    </script>
+        <script type="text/javascript">
       var cons = {
         log: function (msg) {
-          appendResultStr(msg + "\n");
+          return(msg);
         }
       };
     var evaluator = new Evaluator(cons)
      $( document ).ready(function() {
       $(".firepad").jkey('ctrl+r', function () {
-        $(".modal-body").text(evaluator.evaluate(firepad.getText()));
-         $("#output").modal("show");
+        jqconsole.Write(evaluator.evaluate(firepad.getText()));
+        jqconsole.Write("\n");
         });
     });
-      
+
+
+      $('.header').on('mousedown', function(e){
+        var $dragable = $(this).parent(),
+            startWidth = $dragable.height(),
+            pY = e.pageY;
+        
+        $(document).on('mouseup', function(e){
+            $(document).off('mouseup').off('mousemove');
+        });
+        $(document).on('mousemove', function(me){
+            var mx = (me.pageY - pY);
+            //var my = (me.pageY - pY);
+            
+            $dragable.css({
+                
+                height: startWidth - mx,
+                //top: my
+            });
+        });
+                
+    });
     </script>
+
     </body>
 </html>
