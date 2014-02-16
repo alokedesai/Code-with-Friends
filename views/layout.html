@@ -41,7 +41,7 @@
 
         <script type="text/javascript" src="http://codemirror.net/addon/display/fullscreen.js"></script>
 
-
+        <script type="text/javascript" src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
 
 </head>
 <body>
@@ -53,20 +53,37 @@
             left: 0;
             width: 100%;
             height: 100%;
-            z-index: 9999;
+            /*z-index: 9999;*/
             margin: 0;
             padding: 0;
             border: 0px solid #BBBBBB;
             opacity: 1;
   }
   </style>
+  <div class="modal fade output" id="output" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">Output</h4>
+      </div>
+      <div class="modal-body">
+        
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <div id="firepad"></div>
     <script>
      var codeMirror = CodeMirror(document.body, {mode: "javascript",
                     autofocus: true,
                     lineNumbers: true,
                     theme: "monokai",
-                     fontSize: "9pt",
+                    fontSize: "9pt",
                     fullScreen: true, 
                     autoMatchParens: true});
      
@@ -74,7 +91,6 @@
       var firepad = Firepad.fromCodeMirror(firepadRef, codeMirror,
           { richTextShortcuts: true, richTextToolbar: false });
     </script>
-
 
     <script type="text/javascript">
       var cons = {
@@ -85,7 +101,8 @@
     var evaluator = new Evaluator(cons)
      $( document ).ready(function() {
       $(".firepad").jkey('ctrl+r', function () {
-          console.log(evaluator.evaluate(firepad.getText()))
+        $(".modal-body").text(evaluator.evaluate(firepad.getText()));
+         $("#output").modal("show");
         });
     });
       
