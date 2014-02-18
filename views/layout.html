@@ -38,7 +38,16 @@
 
   <div id="firepad"></div>
    <script>
-    var firepadRef = new Firebase("https://fire-base-test.firebaseio.com/'");
+   var hash = window.location.pathname.replace("/","");
+    var firepadRef;
+    if (hash == "test") {
+      var firepadRef = new Firebase("https://fire-base-test.firebaseio.com/");
+    }
+    else {
+      var firepadRef = new Firebase("https://fire-base-test.firebaseio.com/").child(hash);
+    }
+    
+
      var codeMirror = CodeMirror(document.getElementById('firepad'), {mode: "javascript",
                     autofocus: true,
                     lineNumbers: true,
