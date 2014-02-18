@@ -3,13 +3,17 @@
   <title>Code With Friends</title>
         <!-- stylesheets -->
         <link rel="stylesheet" href="/stylesheets/codemirror.css" />
-        <link rel="stylesheet" type="text/css" href="/stylesheets/jqconsole.css">
         <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:700' rel='stylesheet' type='text/css'>
         <link  rel="stylesheet" href="/javascripts/codemirror/theme/monokai.css"/>
         <link rel="stylesheet" href="/stylesheets/firepad.css" />
+        <link rel="stylesheet" type="text/css" href="http://codemirror.net/addon/display/fullscreen.css">
+
         <!-- Bootstrap and local stylesheet -->
         <link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
+           <link rel="stylesheet" type="text/css" href="/stylesheets/jqconsole.css">
         <link rel="stylesheet" type="text/css" href="/stylesheets/styles.css">
+
+
 
 
             <!--firebase  -->
@@ -18,7 +22,7 @@
           <!-- codemirror -->
             <script src="/javascripts/codemirror.js"></script>
             <script type="text/javascript" src="/javascripts/codemirror/mode/javascript/javascript.js"></script>
-        
+          <script type="text/javascript" src="http://codemirror.net/addon/display/fullscreen.js"></script>
 
       
         <!--Required firebase/firepad files -->
@@ -84,7 +88,7 @@
 
      <div class="container"></div>
 
-      <div class="logo">Javascript (press CTRL+SHIFT to run):</div> 
+      <div class="logo">Javascript (press CTRL+R to run):</div> 
       <br>
         <div class="row"></div>
             <div class="col-md-6">
@@ -165,7 +169,7 @@
                         var environment = {};
                         var inputArea = document.getElementById("firepad");
                         //use ctrl+shift to run commands
-                        $("#firepad").jkey('ctrl+shift', function () {
+                        $("#firepad").jkey('ctrl+r', function () {
                             console.log("x");
                              var prog = ""
                              // get the text currently in firepad
@@ -178,10 +182,11 @@
                                 }
                                 
                             })
-                            
+
                         });
 
-                           
+                            console.log(prog);
+                                                       
                             var resultStr = evaluator.evaluate(prog);
                             appendResultStr(resultStr);
 

@@ -33,7 +33,6 @@ if ('development' == app.get('env')) {
 }
 
 app.get('/', routes.index);
-app.get('/users', user.list);
 app.get("/test", function(req,res) {
 	res.render("layout.html")
 })

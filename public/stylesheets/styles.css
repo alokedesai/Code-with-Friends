@@ -49,11 +49,11 @@ padding-top:  50px;
 	-webkit-font-smoothing: antialiased;
 color: rgb(58, 64, 70);
 display: block;
-font-family: SourceSansPro-Black, Helvetica, Arial;
+font-family: 'Source Sans Pro', SourceSansPro-Black, Helvetica, Arial;
 font-size: 70px;
 font-style: normal;
 font-variant: normal;
-font-weight: normal;
+font-weight: 700;
 height: 160px;
 letter-spacing: 2px;
 line-height: 80px;
@@ -121,3 +121,45 @@ transition: all .4s ease-in-out;
 .info{
 	display: none;
 }
+#savedCode{
+	background-color: #;
+}
+#console {
+margin-top: 100px;
+height: 50px;
+}
+.output{
+	position: absolute;
+	box-sizing: border-box;
+bottom: 0;
+width: 100%;
+z-index: 1000;
+max-height: 300px;
+}
+.header{
+	border-top: 1px solid black;
+	border-bottom: 1px solid black;
+	height:30px;
+	width: 100%;
+	position: absolute;
+	top: 0px;
+	background-color:rgb(230,230,230);
+	top: -30px;
+	padding-left: 15px;
+	cursor: row-resize;
+}
+  .firepad{
+     display: block;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            /*min-height: 150px;*/
+            height: 100%;
+            /*z-index: 9999;*/
+            margin: 0 auto;
+            padding-bottom: 30px;
+            border: 0px solid #BBBBBB;
+            opacity: 1;
+            overflow: scroll;
+  }
