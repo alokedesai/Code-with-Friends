@@ -33,10 +33,12 @@ if ('development' == app.get('env')) {
 }
 
 app.get('/', routes.index);
-app.get('/users', user.list);
 app.get("/test", function(req,res) {
 	res.render("layout.html")
-})
+});
+app.get("/:anything", function(req,res) {
+	res.render("layout.html")
+});
 
 var port = process.env.PORT || 5000;
 app.listen(port, function() {

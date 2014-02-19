@@ -1,78 +1,53 @@
 
 <!DOCTYPE html>
-<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
-<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
 <head>
   <title>Code for Friends</title>
 
 
         <!-- Bootstrap and local stylesheet -->
-         <link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
-         <link rel="stylesheet" href="/stylesheets/firepad.css" />
-                 <link rel="stylesheet" href="/stylesheets/codemirror.css" />
-                 <link  rel="stylesheet" href="/javascripts/codemirror/theme/monokai.css"/>
-        <link rel="stylesheet" type="text/css" href="/stylesheets/styles.css">
-                <link rel="stylesheet" type="text/css" href="/stylesheets/jqconsole.css">
+    <link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/stylesheets/firepad.css" />
+    <link rel="stylesheet" href="/stylesheets/codemirror.css" />
+    <link  rel="stylesheet" href="/javascripts/codemirror/theme/monokai.css"/>
+    <link rel="stylesheet" type="text/css" href="/stylesheets/styles.css">
+    <link rel="stylesheet" type="text/css" href="/stylesheets/jqconsole.css">
 
 
-          <!-- <link rel="stylesheet" type="text/css" href="http://codemirror.net/addon/display/fullscreen.css"> -->
-  <!-- <link rel="stylesheet" href="http://tenbourne.com/css/normalize.min.css">
-  <link rel="stylesheet" href="http://tenbourne.com/css/style.min.css?v=1384600727">
-  -->
 
-
-  <script src="https://cdn.firebase.com/v0/firebase.js"></script>
-        <!-- codemirror -->
-            <script src="/javascripts/codemirror.js"></script>
-            
-
-            <script type="text/javascript" src="/javascripts/codemirror/mode/javascript/javascript.js"></script>
-        
-        <!-- Download from http://www.firepad.io/firepad.zip -->
-            
-            <script src="/javascripts/firepad.js"></script> 
-             <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>  
-
-             <!-- JS REPL files -->
-              <script type="text/javascript" src="/javascripts/jquery.jkey.min.js"></script>
+    <script src="https://cdn.firebase.com/v0/firebase.js"></script>
+    <!-- codemirror -->
+    <script src="/javascripts/codemirror.js"></script>
+    <script type="text/javascript" src="/javascripts/codemirror/mode/javascript/javascript.js"></script>
+    <!-- Download from http://www.firepad.io/firepad.zip -->
+    <script src="/javascripts/firepad.js"></script> 
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>  
+   <!-- JS REPL files -->
+    <script type="text/javascript" src="/javascripts/jquery.jkey.min.js"></script>
     <script type="text/javascript" src="/javascripts/evaluator.js"></script>
-
-
-        <!-- JQconsole for writing out files -->
-        <script type="text/javascript" src="/javascripts/jqconsole.js"></script>
-
-        <script type="text/javascript" src="http://codemirror.net/addon/display/fullscreen.js"></script>
-
-        <script type="text/javascript" src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
-        <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/themes/smoothness/jquery-ui.css" />
-<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
+    <!-- JQconsole for writing out files -->
+    <script type="text/javascript" src="/javascripts/jqconsole.js"></script>
+    <script type="text/javascript" src="http://codemirror.net/addon/display/fullscreen.js"></script>
+    <script type="text/javascript" src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/javascripts/script.js"></script>
 
 </head>
 <body>
-  <style type="text/css">
-  .firepad{
-/*     display: block;
-            position: absolute;
-            top: 0;
-            left: 0;*/
-            width: 80%;
-            height: 700px;
-            /*z-index: 9999;*/
-            margin: 0 auto;
-            padding: 0;
-            border: 0px solid #BBBBBB;
-            opacity: 1;
-  }
-  </style>
  
   <div class="content">
 
 
   <div id="firepad"></div>
    <script>
-    var firepadRef = new Firebase("https://fire-base-test.firebaseio.com/'");
+   var hash = window.location.pathname.replace("/","");
+    var firepadRef;
+    if (hash == "test") {
+      var firepadRef = new Firebase("https://fire-base-test.firebaseio.com/");
+    }
+    else {
+      var firepadRef = new Firebase("https://fire-base-test.firebaseio.com/").child(hash);
+    }
+    
+
      var codeMirror = CodeMirror(document.getElementById('firepad'), {mode: "javascript",
                     autofocus: true,
                     lineNumbers: true,
@@ -85,88 +60,21 @@
           { richTextShortcuts: true, richTextToolbar: false });
     </script>
   <div class="output">
-        <div class="header">Console</div>
+        <div class="header"></div>
         <div id="console"></div>
     </div>
 </div>
-
-
-   
-
-    
-    
-
-    <!-- JQconsole script -->
-<script>
-      $(function() {
-        // Creating the console.
-        var header = ''
-        window.jqconsole = $('#console').jqconsole(header, '> ');
-
-        // Abort prompt on Ctrl+Z and Ctrl+C.
-        jqconsole.RegisterShortcut('Z', function() {
-          jqconsole.AbortPrompt();
-          handler();
-        });
-         jqconsole.RegisterShortcut('C', function() {
-          jqconsole.AbortPrompt();
-          handler();
-        });
-        // Move to line start Ctrl+A.
-        jqconsole.RegisterShortcut('A', function() {
-          jqconsole.MoveToStart();
-          handler();
-        });
-        // Move to line end Ctrl+E.
-        jqconsole.RegisterShortcut('E', function() {
-          jqconsole.MoveToEnd();
-          handler();
-        });
-        jqconsole.RegisterMatching('{', '}', 'brace');
-        jqconsole.RegisterMatching('(', ')', 'paran');
-        jqconsole.RegisterMatching('[', ']', 'bracket');
-        // Handle a command.
-        var handler = function(command) {
-          if (command) {
-            try {
-              jqconsole.Write('==> ' + window.eval(command) + '\n');
-            } catch (e) {
-              jqconsole.Write('ERROR: ' + e.message + '\n');
-            }
-          }
-          jqconsole.Prompt(true, handler, function(command) {
-            // Continue line if can't compile the command.
-            try {
-              Function(command);
-            } catch (e) {
-              if (/[\[\{\(]$/.test(command)) {
-                return 1;
-              } else {
-                return 0;
-              }
-            }
-            return false;
-          });
-        };
-
-        // Initiate the first prompt.
-        handler();
-      });
-//hacky way to hide the firepade logo. 
-    </script>
         <script type="text/javascript">
-      var cons = {
-        log: function (msg) {
-          return(msg);
-        }
-      };
-    var evaluator = new Evaluator(cons)
+        jqconsole();
+
      $( document ).ready(function() {
       $(".firepad").jkey('ctrl+r', function () {
         jqconsole.Write(evaluator.evaluate(firepad.getText()));
         jqconsole.Write("\n");
         });
+       resize();
     });
+   
 
 
       $('.header').on('mousedown', function(e){
@@ -179,15 +87,12 @@
         });
         $(document).on('mousemove', function(me){
             var mx = (me.pageY - pY);
-            //var my = (me.pageY - pY);
             
             $dragable.css({
                 
                 height: startWidth - mx,
-                //top: my
             });
-        });
-                
+        });          
     });
     </script>
 

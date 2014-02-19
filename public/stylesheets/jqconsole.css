@@ -1,36 +1,36 @@
-#console {
+/*#console {
 height: 350px;
 width: 90%
 position:relative;
 background-color: rgb(39,40,34) !important;
-/*                    border: 2px solid #CCC;
-*/                    margin: 0 auto;
+                    border: 2px solid #CCC;
+                    margin: 0 auto;
 margin-top: 50px;
-}
+}*/
 .jqconsole {
   padding: 10px;
   padding-bottom: 10px;
-  background-color: rgb(39,40,34) !important;
-  color: #fff;
+  background-color: #fff !important;
+  color: #000;
   font-size: 9pt;
-  border: none;
+/*  border: none;*/
   border-radius: 0px;
 }
 .jqconsole-cursor {
-  background-color: #fff;
+  background-color: #000;
 }
 .jqconsole-blurred .jqconsole-cursor {
   background-color: #666;
 }
 .jqconsole-prompt {
-  color: #0d0;
+  color: rgb(55,125,241);
 }
 .jqconsole-old-prompt {
-  color: #0b0;
+  color: #000;
   font-weight: normal;
 }
 .jqconsole-input {
-  color: #dd0;
+  color: #000;
 }
 .jqconsole-old-input {
   color: #bb0;
@@ -47,4 +47,10 @@ margin-top: 50px;
 }
 .jqconsole-composition {
   background-color: red;
+}
+.jqconsole-error{
+  color: red;
+}
+.jqconsole-header{
+  color: rgb(55,125,241);
 }
