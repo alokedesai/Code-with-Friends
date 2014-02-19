@@ -7,6 +7,8 @@ Evaluator.prototype.evaluate = function (str) {
         str = Evaluator.rewriteDeclarations(str);
         var __environment__ = this.env;
         var console = this.cons;
+
+        
         with (__environment__) {
             return JSON.stringify(eval(str));
         }
