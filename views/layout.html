@@ -70,7 +70,7 @@
      $( document ).ready(function() {
       $(".firepad").jkey('ctrl+r', function () {
         jqconsole.Write(evaluator.evaluate(firepad.getText()));
-
+        jqconsole.Write("\n");
         });
        resize();
     });

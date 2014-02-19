@@ -1,0 +1,22 @@
+<html>
+<head>
+	<title>Test</title>
+</head>
+<body>
+	  <script src="jsrepl.js" id="jsrepl-script"></script> 
+	  <script type="text/javascript">
+	  	  var jsrepl = new JSREPL({  
+    input: inputCallback,  
+    output: outputCallback,  
+    result: resultCallback,  
+    error: errorCallback,  
+    progress: progressCallback,  
+    timeout: {  
+      time: 30000,  
+      callback: timeoutCallback  
+    }  
+  });  
+	  </script>
+
+</body>
+</html>
